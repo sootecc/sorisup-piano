@@ -1120,7 +1120,7 @@ function refreshScore() {
 }
 
 for (let i = 0; i < 4; i++) scoreUi.beats.append(element('span', 'beat'));
-new ResizeObserver(renderSystems).observe(scoreUi['score-systems']);
+window.addEventListener('resize', renderSystems);
 refreshScore();
 window.addEventListener('focus', refreshScore);
 document.addEventListener('visibilitychange', () => {
