@@ -55,13 +55,16 @@ select{max-width:100%;width:100%}.button:hover:not(:disabled){background:var(--w
 .review-text{color:var(--muted);margin:5px 0 10px;font-size:12px}.rating{display:flex;flex-wrap:wrap;gap:7px}.rating .button{font-size:12px}
 .items{margin:10px 0 0;padding:0;list-style:none}.items li{border-top:1px solid var(--line);padding:7px 0;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12px}.items li .button{min-height:34px;font-size:12px;flex:none}
 .items .empty{color:var(--muted)} .history-summary{color:var(--muted);font-size:12px}
-.reference{margin:20px 0 0;padding:17px 22px}.reference summary{cursor:pointer;font-weight:800;font-size:17px}.reference p{margin:8px 0;color:var(--muted);font-size:12px}.ref-pair{padding:12px 0;border-top:1px solid var(--line)}.ref-head{display:flex;justify-content:space-between;gap:9px;align-items:center;margin-bottom:7px}.ref-head h3{font-size:14px}.ref-scales{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ref-scale{display:block;background:var(--wash);border:1px solid transparent;border-radius:7px;padding:6px 8px;text-align:left;color:var(--ink);font:inherit;overflow-wrap:anywhere}.ref-scale:hover{border-color:var(--green)}.ref-scale small{display:block;color:var(--muted);font-size:12px}
+.reference{margin:20px 0 0;padding:17px 22px}.reference p{margin:5px 0 11px;color:var(--muted);font-size:12px}.ref-pair{padding:13px 0;border-top:1px solid var(--line)}.ref-head{display:flex;justify-content:space-between;gap:9px;align-items:center;margin-bottom:7px}.ref-head h3{font-size:15px}.ref-scales{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ref-scale{min-width:0;background:var(--wash);border:1px solid #d2dfd3;border-radius:9px;padding:8px 9px}.ref-scale-title{margin-bottom:6px}.ref-scale-title h4{margin:0;font-size:15px}.ref-open{display:block;margin:3px 0 0 auto;min-height:29px;border:0;background:transparent;color:var(--green);font-size:12px;font-weight:700}.ref-open:hover{text-decoration:underline;text-underline-offset:3px}
 footer{margin:16px 0 30px;color:var(--muted);font-size:12px} section[id],details[id]{scroll-margin-top:12px}
 .routine-toggle>summary{cursor:pointer;padding:12px 16px;font-weight:750}.routine-toggle[open]>summary{border-bottom:1px solid var(--line)}.routine-toggle #routine{border:0;border-radius:0}
-.signature-figure{display:grid;gap:3px;margin:5px 0 11px;max-width:255px}.ref-piano{height:49px;margin-top:5px;box-shadow:none;border:1px solid #314b41;border-radius:5px}.signature-figure .ref-piano{height:42px;margin-top:0}.ref-piano .key{padding-bottom:1px;font-size:9px}.ref-piano .key .dot{width:4px;height:4px;margin-bottom:0}.ref-piano .key.active{box-shadow:none}
+.signature-figure{display:grid;gap:3px;margin:5px 0 11px;max-width:255px}.ref-piano{height:96px;box-shadow:none;border:1px solid #314b41;border-radius:5px}.signature-figure .ref-piano{height:50px}.ref-piano .key .dot{width:4px;height:4px;margin-bottom:0}.ref-piano .key.active{box-shadow:none}
+.key-note{display:grid;justify-items:center;line-height:1.1;gap:2px;padding:0 1px}.key-degree{display:grid;place-items:center;font-size:clamp(10px,1.5vw,13px);font-weight:850}.key-name{font-size:clamp(9px,1.3vw,12px);font-weight:800;white-space:nowrap}.key.black .key-note{padding-inline:0}.signature-figure .key-name{font-size:10px}
 @media(max-width:970px){.wrap{width:calc(100% - 40px)}.grid{grid-template-columns:minmax(0,1.7fr) minmax(275px,1fr);gap:14px}.pad,.stage{padding-left:15px;padding-right:15px}.controls{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:740px){.wrap{width:calc(100% - 24px)}.bar{min-height:55px}.intro{padding:22px 0 17px;margin-bottom:14px;align-items:start}.intro p{font-size:12px}.date{display:none}nav{gap:12px;font-size:12px}.brand{font-size:17px}.logo{width:29px;height:29px;padding-bottom:6px}.grid,.below{grid-template-columns:1fr;gap:12px}.below,.reference{margin-top:12px}.pad,.stage{padding:13px}.controls-top{grid-template-columns:1fr 1fr;gap:7px}.controls-top>div:first-child{grid-column:1 / -1}.current{min-height:88px}.piano{height:108px}.track[data-long="true"] .oct{display:none}.card{border-radius:14px}.reference{padding:12px}.ref-scales{grid-template-columns:1fr}.primary{min-width:86px}}
 @media(max-width:360px){nav{gap:9px}.wrap{width:calc(100% - 16px)}.pad,.stage{padding-left:9px;padding-right:9px}.piano{height:90px}}
+@media(max-width:740px){.ref-piano{height:86px}.signature-figure .ref-piano{height:48px}.ref-scale-title h4{font-size:14px}}
 .interval-layout{display:grid;grid-template-areas:"score controls";grid-template-columns:minmax(0,1.95fr) minmax(295px,1fr);align-items:start;gap:20px}
 .interval-controls{grid-area:controls;position:sticky;top:12px;z-index:2;min-width:0}
 .score-card{grid-area:score;padding:0 18px 13px}
@@ -157,15 +160,6 @@ footer{margin:16px 0 30px;color:var(--muted);font-size:12px} section[id],details
 <div class="row scale-heading"><h2 id="scale-heading">스케일 따라 치기</h2><span class="subtle">15조표 · 30스케일</span></div>
 <div class="grid">
 <section id="practice" class="card" aria-labelledby="practice-title">
-<div class="pad">
-<div class="controls-top">
-<div><label for="pair" class="caption">조표</label><select id="pair"></select></div>
-<div><label for="mode" class="caption">스케일</label><select id="mode"></select></div>
-<div><label for="direction" class="caption">진행 방향</label><select id="direction">
-<option value="round">상행 후 하행</option><option value="up">상행 ↑</option><option value="down">하행 ↓</option></select></div>
-</div>
-<p id="pair-info" class="pair-info"></p>
-</div>
 <div class="stage">
 <div class="stage-top"><span id="practice-title"></span><span class="stage-mode" id="guide-tag"></span></div>
 <div class="current">
@@ -177,6 +171,13 @@ footer{margin:16px 0 30px;color:var(--muted);font-size:12px} section[id],details
 <div class="track" id="track" aria-label="스케일 진행"></div>
 </div>
 <div class="pad">
+<div class="controls-top">
+<div><label for="pair" class="caption">조표</label><select id="pair"></select></div>
+<div><label for="mode" class="caption">스케일</label><select id="mode"></select></div>
+<div><label for="direction" class="caption">진행 방향</label><select id="direction">
+<option value="round">상행 후 하행</option><option value="up">상행 ↑</option><option value="down">하행 ↓</option></select></div>
+</div>
+<p id="pair-info" class="pair-info"></p>
 <div class="row transport">
 <div class="transport-buttons">
 <button id="start" class="button primary" type="button">▶ 시작</button>
@@ -226,14 +227,14 @@ footer{margin:16px 0 30px;color:var(--muted);font-size:12px} section[id],details
 <ul id="history-list" class="items"></ul>
 </div></section>
 </div>
-<details class="card reference" id="reference">
-<summary>전체 조표와 스케일 · 15조표, 30스케일</summary>
-<p>♯ F♯ → C♯ → G♯ → D♯ → A♯ → E♯ → B♯　/　♭ B♭ → E♭ → A♭ → D♭ → G♭ → C♭ → F♭</p>
-<p>도·레·미는 고정된 음이름이에요. E♯는 F, B♯는 C, C♭는 B, F♭는 E와 같은 건반을 눌러요. 아래 음계는 상행 순서이며, 항목을 누르면 따라 치기에 불러와요.</p>
-<p>조표 건반은 올림표·내림표가 붙는 위치를 표시해요. 스케일 건반의 주황색은 으뜸음, 초록색은 그 밖에 쓰는 음이에요.</p>
+<section class="card reference" id="reference" aria-labelledby="reference-heading">
+<h2 id="reference-heading">조표와 스케일 건반</h2>
+<p>건반에 적힌 1 → 8 순서로 올라가고, 8 → 1로 내려와요. 주황색은 시작과 끝 으뜸음이에요.</p>
 <div id="ref-list"></div>
+<p>조표에 붙는 순서　♯ F♯ → C♯ → G♯ → D♯ → A♯ → E♯ → B♯　/　♭ B♭ → E♭ → A♭ → D♭ → G♭ → C♭ → F♭</p>
+<p>같은 건반을 쓰는 음이름　E♯와 F · B♯와 C · C♭와 B · F♭와 E</p>
 <p>이론 기준 <a href="https://viva.pressbooks.pub/openmusictheory/chapter/major-scales/">장음계와 조표</a> · <a href="https://viva.pressbooks.pub/openmusictheory/chapter/minor-scales/">자연단음계와 조표</a></p>
-</details>
+</section>
 <footer>가운데 도는 C4로 표시했어요. 박자와 기록은 화면에서 진행한 연습을 기준으로 해요.</footer>
 </main>
 <noscript>따라 치기와 연습 기록을 사용하려면 이 파일을 JavaScript가 켜진 브라우저에서 열어 주세요.</noscript>
@@ -246,7 +247,7 @@ const ui = Object.fromEntries([
   'start', 'stop', 'status', 'manual', 'prev', 'next', 'tempo', 'meter', 'division',
   'pace', 'guide', 'click', 'tones', 'day', 'daily-count', 'daily-signature', 'lessons',
   'next-day', 'review-target', 'retry', 'confident', 'review-list', 'history-summary',
-  'storage-info', 'history-list', 'reference', 'ref-list'
+  'storage-info', 'history-list', 'ref-list'
 ].map(id => [id, byId(id)]));
 
 const getPair = id => pairs.find(pair => pair.id === id);
@@ -343,7 +344,34 @@ function makeKeyboard(container, firstPitch = 59, lastPitch = 84) {
   }
   return keys;
 }
-const keys = makeKeyboard(ui.piano);
+let keys = new Map();
+let keyboardScale;
+
+function labelKey(key, name, degree) {
+  const label = element('span', 'key-note');
+  if (degree !== undefined) {
+    key.dataset.degree = degree;
+    label.append(element('span', 'key-degree', degree));
+  }
+  label.append(element('span', 'key-name', name));
+  key.replaceChildren(label);
+}
+
+function makeScaleKeyboard(container, notes) {
+  // Leave a neighboring white key at each end so black tonics retain their position.
+  let first = notes[0].pitch - 1;
+  let last = notes.at(-1).pitch + 1;
+  while (!isWhite(first)) first--;
+  while (!isWhite(last)) last++;
+  const keyboard = makeKeyboard(container, first, last);
+  notes.forEach((note, index) => {
+    const key = keyboard.get(note.pitch);
+    key.classList.add('scale-member');
+    key.title = displayPitch(note);
+    labelKey(key, note.name === 'C' ? displayPitch(note) : note.name, index + 1);
+  });
+  return keyboard;
+}
 
 let run = null;
 let timer;
@@ -437,12 +465,19 @@ function renderStage() {
     (countIn ? '준비 박자 ' : '박자 ') + beat + ' / ' + meter : meter + '/4 · ' + view.bpm + ' BPM';
   ui.piano.hidden = !showKeys;
   ui['key-help'].hidden = !showKeys;
-  ui['key-help'].textContent = '● 가운데 도(C4)　 ·　' +
-    (countIn ? '한 마디 기다려요.' : '주황색은 지금 칠 음, 초록색은 스케일 음');
-  ui.piano.setAttribute('aria-label', countIn ? '피아노 건반. 준비 박자' : '피아노 건반. ' + displayPitch(note) + ' 강조');
+  ui['key-help'].textContent = countIn ? '한 마디 기다려요.' :
+    run ? '주황색으로 표시된 건반을 눌러요.' : '1 → 8 상행　·　8 → 1 하행';
+  const scale = pair[mode];
+  if (showKeys && keyboardScale !== scale) {
+    ui.piano.replaceChildren();
+    keys = makeScaleKeyboard(ui.piano, scale.notes);
+    keyboardScale = scale;
+  }
+  const pitches = scale.notes.map(displayPitch).join(', ');
+  ui.piano.setAttribute('aria-label', '스케일 건반 · ' + pitches +
+    (countIn ? ' · 준비 박자' : ' · ' + displayPitch(note) + ' 강조'));
   for (const [pitch, key] of keys) {
     key.classList.toggle('active', showKeys && !countIn && pitch === note.pitch);
-    key.classList.toggle('scale-member', showKeys && sequence.some(step => step.pitch === pitch));
   }
   ui.track.replaceChildren();
   ui.track.style.gridTemplateColumns = 'repeat(' + sequence.length + ', minmax(0,1fr))';
@@ -726,45 +761,50 @@ function renderLog() {
 }
 
 const signaturePitches = { F: 65, C: 60, G: 67, D: 62, A: 69, E: 64, B: 71 };
-for (const [index, pair] of pairs.entries()) {
+for (const pair of pairs) {
   const group = element('article', 'ref-pair');
   const heading = element('div', 'ref-head');
-  heading.append(element('h3', '', (index + 1) + '일차 · ' + signature(pair)),
-    element('span', 'subtle', pair.signs.join(' · ') || '변화음 없음'));
+  heading.append(element('h3', '', signature(pair)),
+    element('span', 'subtle', pair.signs.join(' · ') || '올림표·내림표 없음'));
   const signatureFigure = element('div', 'signature-figure');
   const signatureKeyboard = element('span', 'piano ref-piano');
-  const accidentals = new Set(pair.signs.map(sign => signaturePitches[sign[0]] + (sign[1] === '♯' ? 1 : -1)));
+  const accidentals = new Map(pair.signs.map(sign =>
+    [signaturePitches[sign[0]] + (sign[1] === '♯' ? 1 : -1), sign]));
   signatureKeyboard.setAttribute('role', 'img');
   signatureKeyboard.setAttribute('aria-label', '조표 건반 · ' + (pair.signs.join(', ') || '올림표와 내림표 없음'));
   for (const [pitch, key] of makeKeyboard(signatureKeyboard, 59, 72)) {
-    key.classList.toggle('signature-member', accidentals.has(pitch));
+    if (!accidentals.has(pitch)) continue;
+    key.classList.add('signature-member');
+    labelKey(key, accidentals.get(pitch));
   }
   signatureFigure.append(element('span', 'subtle', '조표에 붙는 건반'), signatureKeyboard);
   const scales = element('div', 'ref-scales');
   for (const mode of modes) {
-    const button = element('button', 'ref-scale');
-    button.type = 'button';
+    const card = element('article', 'ref-scale');
     const notes = pair[mode].notes;
-    const notePitches = new Set(notes.map(note => note.pitch));
     const keyboard = element('span', 'piano ref-piano');
-    keyboard.setAttribute('aria-hidden', 'true');
-    for (const [pitch, key] of makeKeyboard(keyboard)) {
-      key.classList.toggle('scale-member', notePitches.has(pitch));
-      key.classList.toggle('active', pitch === notes[0].pitch || pitch === notes.at(-1).pitch);
-    }
-    button.append(element('strong', '', scaleTitle(pair, mode)),
-      element('small', '', notes.map(displayPitch).join(' · ')), keyboard);
+    const title = scaleTitle(pair, mode);
+    keyboard.setAttribute('role', 'img');
+    keyboard.setAttribute('aria-label', title + ' · ' + notes.map(displayPitch).join(', '));
+    const scaleKeys = makeScaleKeyboard(keyboard, notes);
+    scaleKeys.get(notes[0].pitch).classList.add('active');
+    scaleKeys.get(notes.at(-1).pitch).classList.add('active');
+    const titleRow = element('div', 'row ref-scale-title');
+    titleRow.append(element('h4', '', title),
+      element('span', 'subtle', displayPitch(notes[0]) + ' → ' + displayPitch(notes.at(-1))));
+    const button = element('button', 'ref-open', '박자 연습 →');
+    button.type = 'button';
+    button.setAttribute('aria-label', title + ' 박자에 맞춰 따라 치기');
     button.addEventListener('click', () => openExercise(pair.id, mode));
-    scales.append(button);
+    card.append(titleRow, keyboard, button);
+    scales.append(card);
   }
   group.append(heading, signatureFigure, scales);
   ui['ref-list'].append(group);
 }
-document.querySelector('a[href="#reference"]').addEventListener('click', () => { ui.reference.open = true; });
-
 setModeOptions('major');
 storageMessage();
-stop('준비가 되면 시작을 눌러요.');
+stop('번호를 보고 바로 치거나, 시작을 눌러 박자에 맞춰요.');
 renderLog();
 
 const notationGlyphs = {"treble":{"d":"M376 415C374 427 376 428 382 434C398 449 419 470 438 491C522 583 572 702 572 815C572 902 548 988 507 1048C492 1070 466 1098 455 1098C441 1098 410 1072 390 1050C316 968 292 843 292 739C292 681 299 616 306 575C308 563 309 561 297 551C233 498 164 437 112 373C43 287 0 194 0 87C0 -87 119 -252 364 -252C387 -252 413 -250 433 -246C444 -244 446 -243 448 -255C460 -322 475 -409 475 -456C475 -604 375 -622 316 -622C262 -622 236 -606 236 -593C236 -586 245 -583 268 -576C299 -567 335 -540 335 -482C335 -427 300 -380 239 -380C172 -380 132 -433 132 -495C132 -560 171 -658 322 -658C389 -658 519 -628 519 -458C519 -401 501 -306 490 -244C488 -232 489 -233 503 -227C604 -187 671 -102 671 11C671 139 577 252 430 252C404 252 404 252 401 270ZM470 943C503 943 530 916 530 861C530 792 497 728 419 650C403 634 379 611 356 591C349 585 345 586 343 599C339 625 337 659 337 691C337 847 409 943 470 943ZM361 262C364 243 364 244 346 238C258 208 201 129 201 44C201 -46 248 -110 316 -133C324 -136 336 -139 343 -139C351 -139 355 -134 355 -128C355 -121 347 -118 340 -115C298 -97 268 -54 268 -8C268 49 307 92 368 109C384 113 386 112 388 101L438 -197C440 -208 439 -208 424 -211C408 -214 388 -216 368 -216C193 -216 80 -119 80 20C80 79 90 158 173 252C233 319 279 356 326 394C336 402 338 401 340 390ZM430 103C428 115 429 118 441 117C522 110 589 42 589 -46C589 -109 551 -160 495 -188C483 -194 481 -194 479 -182Z","width":671,"bounds":[0,-658,671,1098]},"bass":{"d":"M252 262C78 262 0 135 0 39C0 -41 42 -110 123 -110C186 -110 229 -66 229 -4C229 60 182 100 133 100C106 100 96 93 83 93C70 93 67 101 67 111C67 151 127 224 229 224C335 224 381 120 381 -37C381 -140 359 -260 297 -356C237 -449 134 -534 10 -605C1 -610 -5 -615 -5 -623C-5 -629 -1 -635 8 -635C13 -635 19 -633 25 -630C158 -565 286 -489 392 -375C479 -281 531 -159 531 -28C531 146 425 262 252 262ZM629 180C598 180 574 156 574 125C574 94 598 70 629 70C660 70 684 94 684 125C684 156 660 180 629 180ZM630 -71C599 -71 576 -94 576 -125C576 -156 599 -179 630 -179C661 -179 684 -156 684 -125C684 -94 661 -71 630 -71Z","width":684,"bounds":[-5,-635,684,262]},"whole":{"d":"M216 125C83 125 0 70 0 2C0 -65 57 -125 206 -125C370 -125 422 -68 422 2C422 73 309 125 216 125ZM111 63C122 98 159 103 190 103C259 103 314 29 314 -31C314 -38 313 -44 312 -50C307 -75 293 -92 268 -98C258 -101 247 -102 237 -102C228 -102 220 -101 211 -98C194 -93 178 -84 164 -72C156 -65 149 -58 143 -50C123 -27 108 7 108 39C108 47 109 55 111 63Z","width":422,"bounds":[0,-125,422,125]},"flat":{"d":"M12 -170C15 -174 18 -175 21 -175C24 -175 27 -173 27 -173C57 -156 81 -129 106 -112C195 -50 226 11 226 57C226 114 182 150 136 153C129 153 122 152 115 150C104 147 92 143 81 136C75 131 64 122 59 122C57 122 56 122 54 123C47 126 43 133 43 140C44 162 50 402 50 422C50 433 41 439 31 439C17 439 1 429 0 411C0 411 4 -160 12 -170ZM47 -81C47 -81 44 -21 44 19C44 35 45 47 46 51C50 63 76 85 90 93C99 98 108 100 116 100C126 100 135 96 141 89C151 78 157 61 157 42C157 24 152 3 140 -18C127 -42 98 -74 68 -93C64 -95 61 -96 58 -96C49 -96 47 -86 47 -81Z","width":226,"bounds":[0,-175,226,439]},"sharp":{"d":"M237 118C244 121 249 129 249 135V206C249 211 246 214 242 214C240 214 239 214 237 213C237 213 217 205 212 204C205 204 198 209 198 217V339C198 345 192 350 184 350C174 350 168 345 168 339V209C167 199 164 186 155 180C143 173 109 159 92 155C83 155 80 167 80 175V295C80 301 73 306 66 306C56 306 50 301 50 295V160C50 146 44 136 38 133C32 130 12 122 12 122C5 120 0 112 0 106V35C0 29 3 26 8 26C9 26 11 27 12 27C12 27 27 33 34 37C35 37 36 38 37 38C44 38 50 28 50 20V-79C50 -90 45 -99 39 -102C33 -104 12 -113 12 -113C5 -115 0 -123 0 -129V-200C0 -206 3 -209 8 -209C9 -209 11 -208 12 -208C12 -208 26 -202 35 -199C36 -198 37 -198 38 -198C45 -198 50 -209 50 -214V-337C50 -343 56 -348 63 -348C73 -348 80 -343 80 -337V-198C80 -185 85 -178 90 -176L151 -151C152 -151 154 -150 155 -150C163 -150 168 -162 168 -168V-293C168 -299 174 -304 181 -304C192 -304 198 -299 198 -293V-151C198 -143 202 -131 209 -128C216 -125 237 -117 237 -117C244 -114 249 -106 249 -100V-29C249 -24 246 -21 242 -21C240 -21 239 -21 237 -22L211 -32C205 -32 198 -26 198 -14V79C198 86 203 105 211 108ZM168 -45C162 -65 115 -85 92 -85C86 -85 81 -83 80 -80C78 -76 77 -54 77 -30C77 1 78 36 80 44C82 61 128 82 153 82C160 82 166 80 168 76C170 71 172 46 172 19C172 -8 170 -36 168 -45Z","width":249,"bounds":[0,-348,249,350]}};
