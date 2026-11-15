@@ -35,9 +35,9 @@ select{max-width:100%;width:100%}.button:hover:not(:disabled){background:var(--w
 .note-sub{font-size:12px;color:#e9eee9;margin-top:5px;min-height:19px}
 .beat-group{flex-shrink:0;text-align:right}.beat-lights{display:flex;gap:6px;justify-content:flex-end;margin:0 0 7px}
 .beat{width:10px;height:10px;border-radius:50%;background:#39594f;border:1px solid #719387}.beat.on{background:var(--accent);border-color:var(--accent)}
-.piano{position:relative;display:flex;height:clamp(85px,12vw,133px);background:#111e1c;border-radius:7px;box-shadow:0 5px 0 #0d211d;padding:0;overflow:hidden}
-.key{display:grid;place-content:end center;border:1px solid #abafa4;min-width:0;border-radius:0 0 5px 5px;flex:1;flex-basis:0;padding:0 0 4px;background:#fcfaf3;color:#293b33;font-size:clamp(7px,1.3vw,11px);font-weight:800}
-.key.black{position:absolute;z-index:1;background:#162523;color:#fff;border-color:#0f1d1a;width:3.8%;height:62%;top:0;transform:translateX(-50%);border-radius:0 0 4px 4px}
+.piano{position:relative;display:block;container-type:inline-size;height:clamp(85px,12vw,133px);background:#111e1c;border-radius:5px;box-shadow:0 5px 0 #0d211d;padding:0;overflow:hidden}
+.key{position:absolute;top:0;height:100%;display:grid;place-content:end center;border:1px solid #a0a59d;border-left-width:0;min-width:0;border-radius:0 0 3px 3px;padding:0 0 5px;background:#fcfaf3;color:#293b33;font-size:clamp(7px,1.3vw,11px);font-weight:800;box-shadow:inset 0 -3px rgba(33,45,36,.12)}
+.key:first-child{border-left-width:1px}.key.black{z-index:1;background:#162523;color:#fff;border:1px solid #0f1d1a;height:64%;transform:translateX(-50%);border-radius:0 0 3px 3px;box-shadow:inset 0 -4px rgba(0,0,0,.24)}
 .key.active{background:var(--accent);color:#532813;border-color:#a35130;box-shadow:inset 0 -6px #de8956}.key.active.black{box-shadow:inset 0 -4px #de8956}
 .key.middle:not(.active){background:#dfeadc}.key.scale-member:not(.active){background:#b6d6c3;color:#183c30}.key.scale-member.black:not(.active){background:#517c6a;color:#fff}
 .key.signature-member{background:#ebc49a;color:#452919}.key.signature-member.black{background:#d39b64;color:#2e2117}.key .dot{display:block;width:6px;height:6px;border-radius:50%;margin:0 auto 2px;background:currentColor}
@@ -60,7 +60,7 @@ select{max-width:100%;width:100%}.button:hover:not(:disabled){background:var(--w
 footer{margin:16px 0 30px;color:var(--muted);font-size:12px} section[id],details[id]{scroll-margin-top:12px}
 .routine-toggle>summary{cursor:pointer;padding:12px 16px;font-weight:750}.routine-toggle[open]>summary{border-bottom:1px solid var(--line)}.routine-toggle #routine{border:0;border-radius:0}
 .signature-figure{display:grid;gap:3px;margin:5px 0 11px;max-width:255px}.ref-piano{height:96px;box-shadow:none;border:1px solid #314b41;border-radius:5px}.signature-figure .ref-piano{height:50px}.ref-piano .key .dot{width:4px;height:4px;margin-bottom:0}.ref-piano .key.active{box-shadow:none}
-.key-note{display:grid;justify-items:center;line-height:1.1;gap:2px;padding:0 1px}.key-degree{display:grid;place-items:center;font-size:clamp(10px,1.5vw,13px);font-weight:850}.key-name{font-size:clamp(9px,1.3vw,12px);font-weight:800;white-space:nowrap}.key.black .key-note{padding-inline:0}.signature-figure .key-name{font-size:10px}
+.key-note{display:grid;justify-items:center;line-height:1.1;gap:2px;padding:0 1px}.key-degree{display:grid;place-items:center;font-size:clamp(9px,2.1cqw,13px);font-weight:850}.key-name{font-size:clamp(8px,2.3cqw,12px);font-weight:800;white-space:nowrap}.key.black .key-note{padding-inline:0}.key.black .key-name{font-size:clamp(7px,2.15cqw,11px)}.signature-figure .key-name,.signature-figure .key.black .key-name{font-size:10px}
 @media(max-width:970px){.wrap{width:calc(100% - 40px)}.grid{grid-template-columns:minmax(0,1.7fr) minmax(275px,1fr);gap:14px}.pad,.stage{padding-left:15px;padding-right:15px}.controls{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:740px){.wrap{width:calc(100% - 24px)}.bar{min-height:55px}.intro{padding:22px 0 17px;margin-bottom:14px;align-items:start}.intro p{font-size:12px}.date{display:none}nav{gap:12px;font-size:12px}.brand{font-size:17px}.logo{width:29px;height:29px;padding-bottom:6px}.grid,.below{grid-template-columns:1fr;gap:12px}.below,.reference{margin-top:12px}.pad,.stage{padding:13px}.controls-top{grid-template-columns:1fr 1fr;gap:7px}.controls-top>div:first-child{grid-column:1 / -1}.current{min-height:88px}.piano{height:108px}.track[data-long="true"] .oct{display:none}.card{border-radius:14px}.reference{padding:12px}.ref-scales{grid-template-columns:1fr}.primary{min-width:86px}}
 @media(max-width:360px){nav{gap:9px}.wrap{width:calc(100% - 16px)}.pad,.stage{padding-left:9px;padding-right:9px}.piano{height:90px}}
@@ -321,11 +321,14 @@ function makeKeyboard(container, firstPitch = 59, lastPitch = 84) {
   const allKeys = Array.from({ length: lastPitch - firstPitch + 1 }, (_, i) => firstPitch + i);
   const keys = new Map();
   const whites = allKeys.filter(isWhite).length;
+  const accidentalOffsets = { 1: -.115, 3: .115, 6: -.13, 8: 0, 10: .13 };
   let whiteCount = 0;
   for (const pitch of allKeys) {
     const key = element('span', 'key');
     key.dataset.pitch = pitch;
     if (isWhite(pitch)) {
+      key.style.left = (100 * whiteCount / whites) + '%';
+      key.style.width = (100 / whites) + '%';
       whiteCount++;
       if (pitch % 12 === 0) {
         if (pitch === 60) {
@@ -336,8 +339,8 @@ function makeKeyboard(container, firstPitch = 59, lastPitch = 84) {
       }
     } else {
       key.classList.add('black');
-      key.style.left = (100 * whiteCount / whites) + '%';
-      key.style.width = (60.8 / whites) + '%';
+      key.style.left = (100 * (whiteCount + accidentalOffsets[pitch % 12]) / whites) + '%';
+      key.style.width = (57 / whites) + '%';
     }
     keys.set(pitch, key);
     container.append(key);
@@ -358,12 +361,8 @@ function labelKey(key, name, degree) {
 }
 
 function makeScaleKeyboard(container, notes) {
-  // Leave a neighboring white key at each end so black tonics retain their position.
-  let first = notes[0].pitch - 1;
-  let last = notes.at(-1).pitch + 1;
-  while (!isWhite(first)) first--;
-  while (!isWhite(last)) last++;
-  const keyboard = makeKeyboard(container, first, last);
+  // Keep the complete 2+3-key pattern visible in both octaves.
+  const keyboard = makeKeyboard(container, Math.min(60, notes[0].pitch), 84);
   notes.forEach((note, index) => {
     const key = keyboard.get(note.pitch);
     key.classList.add('scale-member');
@@ -772,7 +771,7 @@ for (const pair of pairs) {
     [signaturePitches[sign[0]] + (sign[1] === '♯' ? 1 : -1), sign]));
   signatureKeyboard.setAttribute('role', 'img');
   signatureKeyboard.setAttribute('aria-label', '조표 건반 · ' + (pair.signs.join(', ') || '올림표와 내림표 없음'));
-  for (const [pitch, key] of makeKeyboard(signatureKeyboard, 59, 72)) {
+  for (const [pitch, key] of makeKeyboard(signatureKeyboard, accidentals.has(59) ? 59 : 60, 72)) {
     if (!accidentals.has(pitch)) continue;
     key.classList.add('signature-member');
     labelKey(key, accidentals.get(pitch));
