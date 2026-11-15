@@ -39,7 +39,8 @@ select{max-width:100%;width:100%}.button:hover:not(:disabled){background:var(--w
 .key{display:grid;place-content:end center;border:1px solid #abafa4;min-width:0;border-radius:0 0 5px 5px;flex:1;flex-basis:0;padding:0 0 4px;background:#fcfaf3;color:#293b33;font-size:clamp(7px,1.3vw,11px);font-weight:800}
 .key.black{position:absolute;z-index:1;background:#162523;color:#fff;border-color:#0f1d1a;width:3.8%;height:62%;top:0;transform:translateX(-50%);border-radius:0 0 4px 4px}
 .key.active{background:var(--accent);color:#532813;border-color:#a35130;box-shadow:inset 0 -6px #de8956}.key.active.black{box-shadow:inset 0 -4px #de8956}
-.key.middle:not(.active){background:#dfeadc}.key .dot{display:block;width:6px;height:6px;border-radius:50%;margin:0 auto 2px;background:currentColor}
+.key.middle:not(.active){background:#dfeadc}.key.scale-member:not(.active){background:#b6d6c3;color:#183c30}.key.scale-member.black:not(.active){background:#517c6a;color:#fff}
+.key.signature-member{background:#ebc49a;color:#452919}.key.signature-member.black{background:#d39b64;color:#2e2117}.key .dot{display:block;width:6px;height:6px;border-radius:50%;margin:0 auto 2px;background:currentColor}
 .key-help{font-size:11px;color:#c1d3c9;min-height:17px;margin:10px 0 9px}.track{display:grid;gap:4px}.step{background:#25443b;color:#deebe1;text-align:center;font-weight:650;font-size:clamp(8px,1.25vw,12px);border-radius:4px;min-width:0;line-height:2;white-space:nowrap}.step.past{background:#436458;color:#fff}.step.now{background:var(--accent);color:#432919}.step .oct{opacity:.8;font-size:.78em;margin-left:1px}
 .transport{flex-wrap:wrap}.transport-buttons{display:flex;gap:7px;align-items:center}.status{font-size:12px;color:var(--muted);min-height:19px}
 .controls{display:grid;grid-template-columns:minmax(105px,1.2fr) repeat(3,minmax(0,1fr));gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
@@ -57,6 +58,7 @@ select{max-width:100%;width:100%}.button:hover:not(:disabled){background:var(--w
 .reference{margin:20px 0 0;padding:17px 22px}.reference summary{cursor:pointer;font-weight:800;font-size:17px}.reference p{margin:8px 0;color:var(--muted);font-size:12px}.ref-pair{padding:12px 0;border-top:1px solid var(--line)}.ref-head{display:flex;justify-content:space-between;gap:9px;align-items:center;margin-bottom:7px}.ref-head h3{font-size:14px}.ref-scales{display:grid;grid-template-columns:1fr 1fr;gap:8px}.ref-scale{display:block;background:var(--wash);border:1px solid transparent;border-radius:7px;padding:6px 8px;text-align:left;color:var(--ink);font:inherit;overflow-wrap:anywhere}.ref-scale:hover{border-color:var(--green)}.ref-scale small{display:block;color:var(--muted);font-size:12px}
 footer{margin:16px 0 30px;color:var(--muted);font-size:12px} section[id],details[id]{scroll-margin-top:12px}
 .routine-toggle>summary{cursor:pointer;padding:12px 16px;font-weight:750}.routine-toggle[open]>summary{border-bottom:1px solid var(--line)}.routine-toggle #routine{border:0;border-radius:0}
+.signature-figure{display:grid;gap:3px;margin:5px 0 11px;max-width:255px}.ref-piano{height:49px;margin-top:5px;box-shadow:none;border:1px solid #314b41;border-radius:5px}.signature-figure .ref-piano{height:42px;margin-top:0}.ref-piano .key{padding-bottom:1px;font-size:9px}.ref-piano .key .dot{width:4px;height:4px;margin-bottom:0}.ref-piano .key.active{box-shadow:none}
 @media(max-width:970px){.wrap{width:calc(100% - 40px)}.grid{grid-template-columns:minmax(0,1.7fr) minmax(275px,1fr);gap:14px}.pad,.stage{padding-left:15px;padding-right:15px}.controls{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:740px){.wrap{width:calc(100% - 24px)}.bar{min-height:55px}.intro{padding:22px 0 17px;margin-bottom:14px;align-items:start}.intro p{font-size:12px}.date{display:none}nav{gap:12px;font-size:12px}.brand{font-size:17px}.logo{width:29px;height:29px;padding-bottom:6px}.grid,.below{grid-template-columns:1fr;gap:12px}.below,.reference{margin-top:12px}.pad,.stage{padding:13px}.controls-top{grid-template-columns:1fr 1fr;gap:7px}.controls-top>div:first-child{grid-column:1 / -1}.current{min-height:88px}.piano{height:108px}.track[data-long="true"] .oct{display:none}.card{border-radius:14px}.reference{padding:12px}.ref-scales{grid-template-columns:1fr}.primary{min-width:86px}}
 @media(max-width:360px){nav{gap:9px}.wrap{width:calc(100% - 16px)}.pad,.stage{padding-left:9px;padding-right:9px}.piano{height:90px}}
@@ -95,7 +97,7 @@ footer{margin:16px 0 30px;color:var(--muted);font-size:12px} section[id],details
   #print-score{display:block}
   #print-score h1{font:800 26pt "Malgun Gothic","Noto Sans KR",sans-serif;line-height:1.2;letter-spacing:-.035em;margin:0 0 5mm}
   #print-meta{font-size:10pt;padding:0 0 4mm;border-bottom:1px solid #9da6a0;margin-bottom:4mm}
-  #print-score .score-system{break-inside:avoid;margin:0 0 4mm;color:#161b18}
+  #print-score .score-system{break-inside:avoid;margin:0 0 .5mm;height:34mm;color:#161b18}
   #print-score .score-number{fill:#48524a}
   .print-foot{margin-top:6mm;padding-top:3mm;border-top:1px solid #9da6a0;font-size:9pt;color:#48524a}
 }
@@ -113,7 +115,7 @@ footer{margin:16px 0 30px;color:var(--muted);font-size:12px} section[id],details
 <div id="interval-controls" class="interval-controls">
 <div class="card">
 <div class="stage interval-stage">
-<div class="row stage-top"><span id="interval-position"></span><span class="stage-mode">한 마디 4박</span></div>
+<div class="row stage-top"><span id="interval-position"></span><span class="stage-mode" id="interval-clef"></span></div>
 <div class="row interval-current">
 <div><div id="interval-name"></div><div id="interval-notes"></div></div>
 <div class="beat-group"><div id="interval-beats" class="beat-lights" aria-hidden="true"></div><span id="interval-beat-label" class="stage-top"></span></div>
@@ -228,6 +230,7 @@ footer{margin:16px 0 30px;color:var(--muted);font-size:12px} section[id],details
 <summary>전체 조표와 스케일 · 15조표, 30스케일</summary>
 <p>♯ F♯ → C♯ → G♯ → D♯ → A♯ → E♯ → B♯　/　♭ B♭ → E♭ → A♭ → D♭ → G♭ → C♭ → F♭</p>
 <p>도·레·미는 고정된 음이름이에요. E♯는 F, B♯는 C, C♭는 B, F♭는 E와 같은 건반을 눌러요. 아래 음계는 상행 순서이며, 항목을 누르면 따라 치기에 불러와요.</p>
+<p>조표 건반은 올림표·내림표가 붙는 위치를 표시해요. 스케일 건반의 주황색은 으뜸음, 초록색은 그 밖에 쓰는 음이에요.</p>
 <div id="ref-list"></div>
 <p>이론 기준 <a href="https://viva.pressbooks.pub/openmusictheory/chapter/major-scales/">장음계와 조표</a> · <a href="https://viva.pressbooks.pub/openmusictheory/chapter/minor-scales/">자연단음계와 조표</a></p>
 </details>
@@ -257,7 +260,6 @@ const dayLabel = (pair, index) => (index + 1) + '일차 · ' + signature(pair) +
 const reviewKey = (pair, mode) => pair + ':' + mode;
 const whitePitches = [0, 2, 4, 5, 7, 9, 11];
 const isWhite = pitch => whitePitches.includes(pitch % 12);
-const allKeys = Array.from({ length: 26 }, (_, index) => 59 + index);
 const settings = ['pair', 'mode', 'direction', 'guide', 'tempo', 'meter', 'division', 'pace'];
 const storageKey = 'sorisup-scale-practice-v1';
 
@@ -314,12 +316,13 @@ ui.pair.value = pairs[data.day].id;
 ui.date.dateTime = localDate();
 ui.date.textContent = new Intl.DateTimeFormat('ko-KR', { month: 'long', day: 'numeric', weekday: 'long' }).format(new Date());
 
-function makeKeyboard(container) {
+function makeKeyboard(container, firstPitch = 59, lastPitch = 84) {
+  const allKeys = Array.from({ length: lastPitch - firstPitch + 1 }, (_, i) => firstPitch + i);
   const keys = new Map();
   const whites = allKeys.filter(isWhite).length;
   let whiteCount = 0;
   for (const pitch of allKeys) {
-    const key = element('div', 'key');
+    const key = element('span', 'key');
     key.dataset.pitch = pitch;
     if (isWhite(pitch)) {
       whiteCount++;
@@ -333,6 +336,7 @@ function makeKeyboard(container) {
     } else {
       key.classList.add('black');
       key.style.left = (100 * whiteCount / whites) + '%';
+      key.style.width = (60.8 / whites) + '%';
     }
     keys.set(pitch, key);
     container.append(key);
@@ -433,9 +437,13 @@ function renderStage() {
     (countIn ? '준비 박자 ' : '박자 ') + beat + ' / ' + meter : meter + '/4 · ' + view.bpm + ' BPM';
   ui.piano.hidden = !showKeys;
   ui['key-help'].hidden = !showKeys;
-  ui['key-help'].textContent = '● 가운데 도(C4)　 ·　' + (countIn ? '한 마디 기다려요.' : '주황색 건반을 눌러요.');
+  ui['key-help'].textContent = '● 가운데 도(C4)　 ·　' +
+    (countIn ? '한 마디 기다려요.' : '주황색은 지금 칠 음, 초록색은 스케일 음');
   ui.piano.setAttribute('aria-label', countIn ? '피아노 건반. 준비 박자' : '피아노 건반. ' + displayPitch(note) + ' 강조');
-  for (const [pitch, key] of keys) key.classList.toggle('active', showKeys && !countIn && pitch === note.pitch);
+  for (const [pitch, key] of keys) {
+    key.classList.toggle('active', showKeys && !countIn && pitch === note.pitch);
+    key.classList.toggle('scale-member', showKeys && sequence.some(step => step.pitch === pitch));
+  }
   ui.track.replaceChildren();
   ui.track.style.gridTemplateColumns = 'repeat(' + sequence.length + ', minmax(0,1fr))';
   ui.track.dataset.long = sequence.length > 8;
@@ -717,21 +725,39 @@ function renderLog() {
   renderHistory();
 }
 
+const signaturePitches = { F: 65, C: 60, G: 67, D: 62, A: 69, E: 64, B: 71 };
 for (const [index, pair] of pairs.entries()) {
   const group = element('article', 'ref-pair');
   const heading = element('div', 'ref-head');
   heading.append(element('h3', '', (index + 1) + '일차 · ' + signature(pair)),
     element('span', 'subtle', pair.signs.join(' · ') || '변화음 없음'));
+  const signatureFigure = element('div', 'signature-figure');
+  const signatureKeyboard = element('span', 'piano ref-piano');
+  const accidentals = new Set(pair.signs.map(sign => signaturePitches[sign[0]] + (sign[1] === '♯' ? 1 : -1)));
+  signatureKeyboard.setAttribute('role', 'img');
+  signatureKeyboard.setAttribute('aria-label', '조표 건반 · ' + (pair.signs.join(', ') || '올림표와 내림표 없음'));
+  for (const [pitch, key] of makeKeyboard(signatureKeyboard, 59, 72)) {
+    key.classList.toggle('signature-member', accidentals.has(pitch));
+  }
+  signatureFigure.append(element('span', 'subtle', '조표에 붙는 건반'), signatureKeyboard);
   const scales = element('div', 'ref-scales');
   for (const mode of modes) {
     const button = element('button', 'ref-scale');
     button.type = 'button';
+    const notes = pair[mode].notes;
+    const notePitches = new Set(notes.map(note => note.pitch));
+    const keyboard = element('span', 'piano ref-piano');
+    keyboard.setAttribute('aria-hidden', 'true');
+    for (const [pitch, key] of makeKeyboard(keyboard)) {
+      key.classList.toggle('scale-member', notePitches.has(pitch));
+      key.classList.toggle('active', pitch === notes[0].pitch || pitch === notes.at(-1).pitch);
+    }
     button.append(element('strong', '', scaleTitle(pair, mode)),
-      element('small', '', pair[mode].notes.map(displayPitch).join(' · ')));
+      element('small', '', notes.map(displayPitch).join(' · ')), keyboard);
     button.addEventListener('click', () => openExercise(pair.id, mode));
     scales.append(button);
   }
-  group.append(heading, scales);
+  group.append(heading, signatureFigure, scales);
   ui['ref-list'].append(group);
 }
 document.querySelector('a[href="#reference"]').addEventListener('click', () => { ui.reference.open = true; });
@@ -741,7 +767,7 @@ storageMessage();
 stop('준비가 되면 시작을 눌러요.');
 renderLog();
 
-const notationGlyphs = {"clef":{"d":"M376 415C374 427 376 428 382 434C398 449 419 470 438 491C522 583 572 702 572 815C572 902 548 988 507 1048C492 1070 466 1098 455 1098C441 1098 410 1072 390 1050C316 968 292 843 292 739C292 681 299 616 306 575C308 563 309 561 297 551C233 498 164 437 112 373C43 287 0 194 0 87C0 -87 119 -252 364 -252C387 -252 413 -250 433 -246C444 -244 446 -243 448 -255C460 -322 475 -409 475 -456C475 -604 375 -622 316 -622C262 -622 236 -606 236 -593C236 -586 245 -583 268 -576C299 -567 335 -540 335 -482C335 -427 300 -380 239 -380C172 -380 132 -433 132 -495C132 -560 171 -658 322 -658C389 -658 519 -628 519 -458C519 -401 501 -306 490 -244C488 -232 489 -233 503 -227C604 -187 671 -102 671 11C671 139 577 252 430 252C404 252 404 252 401 270ZM470 943C503 943 530 916 530 861C530 792 497 728 419 650C403 634 379 611 356 591C349 585 345 586 343 599C339 625 337 659 337 691C337 847 409 943 470 943ZM361 262C364 243 364 244 346 238C258 208 201 129 201 44C201 -46 248 -110 316 -133C324 -136 336 -139 343 -139C351 -139 355 -134 355 -128C355 -121 347 -118 340 -115C298 -97 268 -54 268 -8C268 49 307 92 368 109C384 113 386 112 388 101L438 -197C440 -208 439 -208 424 -211C408 -214 388 -216 368 -216C193 -216 80 -119 80 20C80 79 90 158 173 252C233 319 279 356 326 394C336 402 338 401 340 390ZM430 103C428 115 429 118 441 117C522 110 589 42 589 -46C589 -109 551 -160 495 -188C483 -194 481 -194 479 -182Z","width":671,"bounds":[0,-658,671,1098]},"whole":{"d":"M216 125C83 125 0 70 0 2C0 -65 57 -125 206 -125C370 -125 422 -68 422 2C422 73 309 125 216 125ZM111 63C122 98 159 103 190 103C259 103 314 29 314 -31C314 -38 313 -44 312 -50C307 -75 293 -92 268 -98C258 -101 247 -102 237 -102C228 -102 220 -101 211 -98C194 -93 178 -84 164 -72C156 -65 149 -58 143 -50C123 -27 108 7 108 39C108 47 109 55 111 63Z","width":422,"bounds":[0,-125,422,125]},"flat":{"d":"M12 -170C15 -174 18 -175 21 -175C24 -175 27 -173 27 -173C57 -156 81 -129 106 -112C195 -50 226 11 226 57C226 114 182 150 136 153C129 153 122 152 115 150C104 147 92 143 81 136C75 131 64 122 59 122C57 122 56 122 54 123C47 126 43 133 43 140C44 162 50 402 50 422C50 433 41 439 31 439C17 439 1 429 0 411C0 411 4 -160 12 -170ZM47 -81C47 -81 44 -21 44 19C44 35 45 47 46 51C50 63 76 85 90 93C99 98 108 100 116 100C126 100 135 96 141 89C151 78 157 61 157 42C157 24 152 3 140 -18C127 -42 98 -74 68 -93C64 -95 61 -96 58 -96C49 -96 47 -86 47 -81Z","width":226,"bounds":[0,-175,226,439]},"sharp":{"d":"M237 118C244 121 249 129 249 135V206C249 211 246 214 242 214C240 214 239 214 237 213C237 213 217 205 212 204C205 204 198 209 198 217V339C198 345 192 350 184 350C174 350 168 345 168 339V209C167 199 164 186 155 180C143 173 109 159 92 155C83 155 80 167 80 175V295C80 301 73 306 66 306C56 306 50 301 50 295V160C50 146 44 136 38 133C32 130 12 122 12 122C5 120 0 112 0 106V35C0 29 3 26 8 26C9 26 11 27 12 27C12 27 27 33 34 37C35 37 36 38 37 38C44 38 50 28 50 20V-79C50 -90 45 -99 39 -102C33 -104 12 -113 12 -113C5 -115 0 -123 0 -129V-200C0 -206 3 -209 8 -209C9 -209 11 -208 12 -208C12 -208 26 -202 35 -199C36 -198 37 -198 38 -198C45 -198 50 -209 50 -214V-337C50 -343 56 -348 63 -348C73 -348 80 -343 80 -337V-198C80 -185 85 -178 90 -176L151 -151C152 -151 154 -150 155 -150C163 -150 168 -162 168 -168V-293C168 -299 174 -304 181 -304C192 -304 198 -299 198 -293V-151C198 -143 202 -131 209 -128C216 -125 237 -117 237 -117C244 -114 249 -106 249 -100V-29C249 -24 246 -21 242 -21C240 -21 239 -21 237 -22L211 -32C205 -32 198 -26 198 -14V79C198 86 203 105 211 108ZM168 -45C162 -65 115 -85 92 -85C86 -85 81 -83 80 -80C78 -76 77 -54 77 -30C77 1 78 36 80 44C82 61 128 82 153 82C160 82 166 80 168 76C170 71 172 46 172 19C172 -8 170 -36 168 -45Z","width":249,"bounds":[0,-348,249,350]}};
+const notationGlyphs = {"treble":{"d":"M376 415C374 427 376 428 382 434C398 449 419 470 438 491C522 583 572 702 572 815C572 902 548 988 507 1048C492 1070 466 1098 455 1098C441 1098 410 1072 390 1050C316 968 292 843 292 739C292 681 299 616 306 575C308 563 309 561 297 551C233 498 164 437 112 373C43 287 0 194 0 87C0 -87 119 -252 364 -252C387 -252 413 -250 433 -246C444 -244 446 -243 448 -255C460 -322 475 -409 475 -456C475 -604 375 -622 316 -622C262 -622 236 -606 236 -593C236 -586 245 -583 268 -576C299 -567 335 -540 335 -482C335 -427 300 -380 239 -380C172 -380 132 -433 132 -495C132 -560 171 -658 322 -658C389 -658 519 -628 519 -458C519 -401 501 -306 490 -244C488 -232 489 -233 503 -227C604 -187 671 -102 671 11C671 139 577 252 430 252C404 252 404 252 401 270ZM470 943C503 943 530 916 530 861C530 792 497 728 419 650C403 634 379 611 356 591C349 585 345 586 343 599C339 625 337 659 337 691C337 847 409 943 470 943ZM361 262C364 243 364 244 346 238C258 208 201 129 201 44C201 -46 248 -110 316 -133C324 -136 336 -139 343 -139C351 -139 355 -134 355 -128C355 -121 347 -118 340 -115C298 -97 268 -54 268 -8C268 49 307 92 368 109C384 113 386 112 388 101L438 -197C440 -208 439 -208 424 -211C408 -214 388 -216 368 -216C193 -216 80 -119 80 20C80 79 90 158 173 252C233 319 279 356 326 394C336 402 338 401 340 390ZM430 103C428 115 429 118 441 117C522 110 589 42 589 -46C589 -109 551 -160 495 -188C483 -194 481 -194 479 -182Z","width":671,"bounds":[0,-658,671,1098]},"bass":{"d":"M252 262C78 262 0 135 0 39C0 -41 42 -110 123 -110C186 -110 229 -66 229 -4C229 60 182 100 133 100C106 100 96 93 83 93C70 93 67 101 67 111C67 151 127 224 229 224C335 224 381 120 381 -37C381 -140 359 -260 297 -356C237 -449 134 -534 10 -605C1 -610 -5 -615 -5 -623C-5 -629 -1 -635 8 -635C13 -635 19 -633 25 -630C158 -565 286 -489 392 -375C479 -281 531 -159 531 -28C531 146 425 262 252 262ZM629 180C598 180 574 156 574 125C574 94 598 70 629 70C660 70 684 94 684 125C684 156 660 180 629 180ZM630 -71C599 -71 576 -94 576 -125C576 -156 599 -179 630 -179C661 -179 684 -156 684 -125C684 -94 661 -71 630 -71Z","width":684,"bounds":[-5,-635,684,262]},"whole":{"d":"M216 125C83 125 0 70 0 2C0 -65 57 -125 206 -125C370 -125 422 -68 422 2C422 73 309 125 216 125ZM111 63C122 98 159 103 190 103C259 103 314 29 314 -31C314 -38 313 -44 312 -50C307 -75 293 -92 268 -98C258 -101 247 -102 237 -102C228 -102 220 -101 211 -98C194 -93 178 -84 164 -72C156 -65 149 -58 143 -50C123 -27 108 7 108 39C108 47 109 55 111 63Z","width":422,"bounds":[0,-125,422,125]},"flat":{"d":"M12 -170C15 -174 18 -175 21 -175C24 -175 27 -173 27 -173C57 -156 81 -129 106 -112C195 -50 226 11 226 57C226 114 182 150 136 153C129 153 122 152 115 150C104 147 92 143 81 136C75 131 64 122 59 122C57 122 56 122 54 123C47 126 43 133 43 140C44 162 50 402 50 422C50 433 41 439 31 439C17 439 1 429 0 411C0 411 4 -160 12 -170ZM47 -81C47 -81 44 -21 44 19C44 35 45 47 46 51C50 63 76 85 90 93C99 98 108 100 116 100C126 100 135 96 141 89C151 78 157 61 157 42C157 24 152 3 140 -18C127 -42 98 -74 68 -93C64 -95 61 -96 58 -96C49 -96 47 -86 47 -81Z","width":226,"bounds":[0,-175,226,439]},"sharp":{"d":"M237 118C244 121 249 129 249 135V206C249 211 246 214 242 214C240 214 239 214 237 213C237 213 217 205 212 204C205 204 198 209 198 217V339C198 345 192 350 184 350C174 350 168 345 168 339V209C167 199 164 186 155 180C143 173 109 159 92 155C83 155 80 167 80 175V295C80 301 73 306 66 306C56 306 50 301 50 295V160C50 146 44 136 38 133C32 130 12 122 12 122C5 120 0 112 0 106V35C0 29 3 26 8 26C9 26 11 27 12 27C12 27 27 33 34 37C35 37 36 38 37 38C44 38 50 28 50 20V-79C50 -90 45 -99 39 -102C33 -104 12 -113 12 -113C5 -115 0 -123 0 -129V-200C0 -206 3 -209 8 -209C9 -209 11 -208 12 -208C12 -208 26 -202 35 -199C36 -198 37 -198 38 -198C45 -198 50 -209 50 -214V-337C50 -343 56 -348 63 -348C73 -348 80 -343 80 -337V-198C80 -185 85 -178 90 -176L151 -151C152 -151 154 -150 155 -150C163 -150 168 -162 168 -168V-293C168 -299 174 -304 181 -304C192 -304 198 -299 198 -293V-151C198 -143 202 -131 209 -128C216 -125 237 -117 237 -117C244 -114 249 -106 249 -100V-29C249 -24 246 -21 242 -21C240 -21 239 -21 237 -22L211 -32C205 -32 198 -26 198 -14V79C198 86 203 105 211 108ZM168 -45C162 -65 115 -85 92 -85C86 -85 81 -83 80 -80C78 -76 77 -54 77 -30C77 1 78 36 80 44C82 61 128 82 153 82C160 82 166 80 168 76C170 71 172 46 172 19C172 -8 170 -36 168 -45Z","width":249,"bounds":[0,-348,249,350]}};
 const intervalDefinitions = [
   ['완',1,0], ['단',2,1], ['장',2,2], ['감',3,2], ['단',3,3], ['장',3,4], ['증',3,5],
   ['감',4,4], ['완',4,5], ['증',4,6], ['감',5,6], ['완',5,7], ['증',5,8],
@@ -749,18 +775,23 @@ const intervalDefinitions = [
 ].map(([quality, degree, semitones]) => ({ quality, degree, semitones }));
 
 const scoreUi = Object.fromEntries([
-  'interval-controls','interval-position','interval-name','interval-notes','interval-beats','interval-beat-label',
+  'interval-controls','interval-position','interval-clef','interval-name','interval-notes','interval-beats','interval-beat-label',
   'interval-piano','interval-help','interval-start','interval-stop','interval-listen','interval-prev','interval-next',
   'interval-tempo','interval-click','interval-tone','interval-status','interval-progress','interval-first',
   'score-systems','sheet-meta','print-daily','print-meta','print-systems'
 ].map(id => [id.replace('interval-', ''), byId(id)]));
-const scoreKeys = makeKeyboard(scoreUi.piano);
+const scoreKeys = makeKeyboard(scoreUi.piano, 48, 84);
+const scoreVersion = 'c3-c6';
 const letterNames = 'CDEFGAB';
 const koreanNotes = '도레미파솔라시';
 const lowerAccidentals = [-1, 0, 1];
 const symbols = { '-1': '♭', 0: '', 1: '♯' };
 const shortInterval = type => type.quality + type.degree;
 const fullInterval = type => (type.quality === '완' ? '완전' : type.quality) + type.degree + '도';
+const clefs = {
+  bass: { name: '낮은음자리표', bottom: -3, anchor: 3 },
+  treble: { name: '높은음자리표', bottom: 9, anchor: 11 }
+};
 
 function scoreShuffle(items, seed) {
   let state = 2166136261;
@@ -779,34 +810,43 @@ function scoreShuffle(items, seed) {
 function staffNote(step, accidental) {
   const letter = step % 7;
   return {
-    step, accidental, octave: 4 + Math.floor(step / 7),
+    step, accidental, octave: 3 + Math.floor(step / 7),
     name: letterNames[letter] + symbols[accidental],
     ko: koreanNotes[letter] + symbols[accidental],
-    pitch: 60 + 12 * Math.floor(step / 7) + whitePitches[letter] + accidental
+    pitch: 48 + 12 * Math.floor(step / 7) + whitePitches[letter] + accidental
   };
 }
 
 function intervalExamples(type) {
-  const natural = [];
-  const altered = [];
-  for (let root = 0; root < 8; root++) {
+  const bass = [];
+  const treble = [];
+  for (let root = 0; root <= 21; root++) {
     for (const accidental of lowerAccidentals) {
       const first = staffNote(root, accidental);
       const top = staffNote(root + type.degree - 1, 0);
       const alteration = first.pitch + type.semitones - top.pitch;
       if (Math.abs(alteration) > 1 || !scoreKeys.has(first.pitch) || !scoreKeys.has(top.pitch + alteration)) continue;
       const notes = [first, staffNote(top.step, alteration)];
-      (accidental === 0 ? natural : altered).push({ type, notes });
+      const centeredBelowMiddleC = first.pitch + notes[1].pitch < 120;
+      if (centeredBelowMiddleC && top.step <= 9) bass.push({ type, notes, clef: 'bass' });
+      if (!centeredBelowMiddleC && root >= 5) treble.push({ type, notes, clef: 'treble' });
     }
   }
-  return [natural, altered].map((arr, i) => scoreShuffle(arr, shortInterval(type) + ':' + i));
+  return [bass, treble].map((arr, i) => scoreShuffle(arr, shortInterval(type) + ':' + i));
 }
 
 const exampleDecks = intervalDefinitions.map(intervalExamples);
 function dailyScore(date) {
   const day = Date.parse(date + 'T00:00:00Z') / 86400000;
-  const todaysExamples = exampleDecks.flatMap(decks => decks.map(deck => deck[((day % deck.length) + deck.length) % deck.length]));
-  return scoreShuffle(todaysExamples, 'sorisup-sheet:' + date);
+  const registers = [0, 1].map(register => {
+    const examples = exampleDecks.map(decks => {
+      const deck = decks[register];
+      return deck[((day % deck.length) + deck.length) % deck.length];
+    });
+    return scoreShuffle(examples, 'sorisup-sheet:' + date + ':' + register);
+  });
+  return [0, 6, 12].flatMap((start, i) =>
+    registers.flatMap(items => items.slice(start, i === 2 ? undefined : start + 6)));
 }
 
 let scoreDate = '';
@@ -832,8 +872,8 @@ function svg(tag, attributes, content) {
   return node;
 }
 
-function staffY(step) {
-  return staffBottom - (step - 2) * staffStepHeight;
+function staffY(step, clef) {
+  return staffBottom - (step - clefs[clef].bottom) * staffStepHeight;
 }
 
 function musicGlyph(name, x, y, noteStep) {
@@ -849,6 +889,7 @@ function staffLine(x1, x2, y, cls = 'staff-rule') {
 
 function drawChord(group, measure, left) {
   const [first, second] = measure.notes;
+  const bottom = clefs[measure.clef].bottom;
   const distinct = first.pitch !== second.pitch;
   const adjacent = second.step - first.step === 1;
   const center = left + 46;
@@ -862,13 +903,13 @@ function drawChord(group, measure, left) {
     ledger.set(step, [Math.min(extent[0], x - 11), Math.max(extent[1], x + 11)]);
   }
   for (const { note, x } of placed) {
-    for (let line = 0; line >= note.step; line -= 2) addLedger(line, x);
-    for (let line = 12; line <= note.step; line += 2) addLedger(line, x);
+    for (let line = bottom - 2; line >= note.step; line -= 2) addLedger(line, x);
+    for (let line = bottom + 10; line <= note.step; line += 2) addLedger(line, x);
   }
-  for (const [step, [a, b]] of ledger) group.append(staffLine(a, b, staffY(step), 'ledger'));
+  for (const [step, [a, b]] of ledger) group.append(staffLine(a, b, staffY(step, measure.clef), 'ledger'));
   const bothAltered = distinct && first.accidental && second.accidental && second.step - first.step < 6;
   for (const [index, { note, x }] of placed.entries()) {
-    const y = staffY(note.step);
+    const y = staffY(note.step, measure.clef);
     if (note.accidental) {
       const name = note.accidental < 0 ? 'flat' : 'sharp';
       const avoidCollision = bothAltered && index === 1 ? 12 : 0;
@@ -887,10 +928,16 @@ function readMeasureLabel(index, measure) {
 function drawScore(container, perSystem, interactive) {
   container.replaceChildren();
   const width = systemLead + measureWidth * perSystem + 2;
-  for (let start = 0; start < measures.length; start += perSystem) {
-    const subset = measures.slice(start, start + perSystem);
-    const staff = svg('svg', { class: 'score-system', viewBox: '0 0 ' + width + ' 135' });
+  let start = 0;
+  while (start < measures.length) {
+    const clef = measures[start].clef;
+    const nextClef = measures.findIndex((measure, i) => i > start && measure.clef !== clef);
+    const remaining = (nextClef < 0 ? measures.length : nextClef) - start;
+    const length = Math.ceil(remaining / Math.ceil(remaining / perSystem));
+    const subset = measures.slice(start, start + length);
+    const staff = svg('svg', { class: 'score-system', 'data-clef': clef, viewBox: '0 0 ' + width + ' 135' });
     if (!interactive) staff.setAttribute('aria-hidden', 'true');
+    const staffLines = Array.from({ length: 5 }, (_, i) => staffBottom - i * staffStepHeight * 2);
     for (const [index, measure] of subset.entries()) {
       const position = start + index;
       const left = systemLead + measureWidth * index;
@@ -898,9 +945,9 @@ function drawScore(container, perSystem, interactive) {
         'aria-label': readMeasureLabel(position, measure) } : {};
       const bar = svg('g', attrs);
       bar.append(svg('rect', { class: 'measure-bg', x: left + 1, y: 5, width: measureWidth - 2, height: 126, rx: 5 }));
-      for (let step = 2; step <= 10; step += 2) bar.append(staffLine(left, left + measureWidth, staffY(step)));
+      for (const y of staffLines) bar.append(staffLine(left, left + measureWidth, y));
       bar.append(svg('line', { class: 'staff-rule', x1: left + measureWidth, x2: left + measureWidth,
-        y1: staffY(10), y2: staffBottom }));
+        y1: staffLines.at(-1), y2: staffBottom }));
       drawChord(bar, measure, left);
       bar.append(svg('text', { class: 'score-label', x: left + measureWidth / 2, y: 124, 'text-anchor': 'middle' }, shortInterval(measure.type)));
       if (interactive) {
@@ -913,17 +960,18 @@ function drawScore(container, perSystem, interactive) {
       }
       staff.append(bar);
     }
-    for (let step = 2; step <= 10; step += 2) staff.prepend(staffLine(4, systemLead, staffY(step)));
+    for (const y of staffLines) staff.prepend(staffLine(4, systemLead, y));
     staff.append(svg('text', { class: 'score-number', x: 5, y: 18 }, start + 1));
-    staff.append(musicGlyph('clef', 10, staffY(4)));
+    staff.append(musicGlyph(clef, 10, staffY(clefs[clef].anchor, clef)));
     container.append(staff);
+    start += length;
   }
 }
 
 function renderSystems() {
   const container = scoreUi['score-systems'];
   const width = container.clientWidth;
-  const perSystem = width >= 690 ? 8 : width >= 500 ? 6 : 4;
+  const perSystem = width >= 555 ? 7 : 4;
   if (width && perSystem !== screenWidth) {
     screenWidth = perSystem;
     drawScore(container, perSystem, true);
@@ -938,6 +986,7 @@ function renderMeasure() {
   const distinct = first.pitch !== second.pitch;
   const names = distinct ? displayPitch(first) + ' + ' + displayPitch(second) : displayPitch(first);
   scoreUi.position.textContent = (currentMeasure + 1) + ' / ' + measures.length + '마디';
+  scoreUi.clef.textContent = clefs[bar.clef].name + ' · 4박';
   scoreUi.name.textContent = fullInterval(bar.type);
   scoreUi.notes.textContent = distinct ? first.ko + ' + ' + second.ko + '　·　' + names : first.ko + '　·　' + names;
   scoreUi.help.textContent = distinct ? '주황색 두 건반을 함께 눌러요.　● 가운데 도(C4)' : '완전1도는 한 건반을 눌러요.　● 가운데 도(C4)';
@@ -999,7 +1048,7 @@ function rememberMeasure(index) {
   const previousSize = doneMeasures.size;
   doneMeasures.add(index);
   if (doneMeasures.size === previousSize) return;
-  data.intervalSheet = { date: scoreDate, completed: [...doneMeasures] };
+  data.intervalSheet = { date: scoreDate, version: scoreVersion, completed: [...doneMeasures] };
   save();
 }
 
@@ -1091,7 +1140,8 @@ function checkScoreDate() {
   stopIntervalPlayback();
   scoreDate = date;
   measures = dailyScore(date);
-  const saved = data.intervalSheet?.date === date && Array.isArray(data.intervalSheet.completed) ?
+  const saved = data.intervalSheet?.date === date && data.intervalSheet.version === scoreVersion &&
+    Array.isArray(data.intervalSheet.completed) ?
     data.intervalSheet.completed : [];
   doneMeasures = new Set(saved.filter(i => Number.isInteger(i) && i >= 0 && i < measures.length));
   const resume = measures.findIndex((_, i) => !doneMeasures.has(i));
@@ -1100,9 +1150,9 @@ function checkScoreDate() {
   ui.date.dateTime = date;
   ui.date.textContent = new Intl.DateTimeFormat('ko-KR', { month: 'long', day: 'numeric', weekday: 'long' }).format(new Date());
   scoreUi['sheet-meta'].textContent = ui.date.textContent + ' · ' + measures.length + '마디';
-  scoreUi['print-meta'].textContent = date + ' · ' + measures.length + '마디 · 한 마디 4박. 두 음을 함께 눌러요.';
+  scoreUi['print-meta'].textContent = date + ' · ' + measures.length + '마디 · C3~C6 · 한 마디 4박';
   scoreUi.status.textContent = '마디를 눌러 바로 건반에서 확인할 수 있어요.';
-  drawScore(scoreUi['print-systems'], 8, false);
+  drawScore(scoreUi['print-systems'], 7, false);
   renderSystems();
   return true;
 }
