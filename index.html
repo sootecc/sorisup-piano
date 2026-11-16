@@ -820,7 +820,7 @@ const scoreUi = Object.fromEntries([
   'score-systems','sheet-meta','print-daily','print-meta','print-systems'
 ].map(id => [id.replace('interval-', ''), byId(id)]));
 const scoreKeys = makeKeyboard(scoreUi.piano, 48, 84);
-const scoreVersion = 'c3-c6';
+const scoreVersion = 'c3-c6-one-bass-line';
 const letterNames = 'CDEFGAB';
 const koreanNotes = '도레미파솔라시';
 const lowerAccidentals = [-1, 0, 1];
@@ -877,15 +877,20 @@ function intervalExamples(type) {
 const exampleDecks = intervalDefinitions.map(intervalExamples);
 function dailyScore(date) {
   const day = Date.parse(date + 'T00:00:00Z') / 86400000;
-  const registers = [0, 1].map(register => {
-    const examples = exampleDecks.map(decks => {
-      const deck = decks[register];
-      return deck[((day % deck.length) + deck.length) % deck.length];
-    });
-    return scoreShuffle(examples, 'sorisup-sheet:' + date + ':' + register);
+  const bassDegrees = new Set(scoreShuffle(
+    intervalDefinitions.map((_, i) => i), 'sorisup-bass-selection:' + date
+  ).slice(0, 4));
+  const draw = (deck, position) => deck[((position % deck.length) + deck.length) % deck.length];
+  const bass = [];
+  const treble = [];
+  exampleDecks.forEach(([low, high], i) => {
+    treble.push(draw(high, 2 * day));
+    if (bassDegrees.has(i)) bass.push(draw(low, day));
+    else treble.push(draw(high, 2 * day + 1));
   });
-  return [0, 6, 12].flatMap((start, i) =>
-    registers.flatMap(items => items.slice(start, i === 2 ? undefined : start + 6)));
+  const upperSystems = scoreShuffle(treble, 'sorisup-treble:' + date);
+  const lowerSystem = scoreShuffle(bass, 'sorisup-bass:' + date);
+  return [...upperSystems.slice(0, 14), ...lowerSystem, ...upperSystems.slice(14)];
 }
 
 let scoreDate = '';
