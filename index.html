@@ -69,6 +69,15 @@ footer{margin:16px 0 30px;color:var(--muted);font-size:12px} section[id],details
 .interval-controls{grid-area:controls;position:sticky;top:12px;z-index:2;min-width:0}
 .score-card{grid-area:score;padding:0 18px 13px}
 .score-head{padding:15px 2px 11px;border-bottom:1px solid var(--line)}.score-head h2{font-size:20px}.score-head p{margin-top:3px}.score-head .button,.score-foot .button{white-space:nowrap;min-height:37px;font-size:12px}
+.score-actions,.memory-actions,.memory-choices{display:flex;gap:7px;flex-wrap:wrap}.score-actions{justify-content:flex-end}
+.memory-card{max-width:850px;margin:0 auto}.memory-head{background:var(--wash);border-bottom:1px solid var(--line)}
+.memory-head p{margin-top:3px}.memory-head .button,.memory-choices .button{min-height:35px;font-size:12px;white-space:nowrap}
+.memory-choices{margin-top:11px}.memory-choices .button[aria-pressed=true]{background:var(--green);border-color:var(--green);color:#fff}
+.memory-steps{display:flex;gap:6px;flex-wrap:wrap;list-style:none;margin:0 0 14px;padding:0}.memory-steps li{border:1px solid #46695e;border-radius:6px;padding:3px 7px;color:#c9ddd2;font-size:12px}
+.memory-steps [aria-current=step]{background:#f6ad7d;color:#342418;border-color:#f6ad7d;font-weight:800}
+.memory-prompt h3{font-size:clamp(25px,5vw,41px);line-height:1.13;color:var(--accent);letter-spacing:-.055em}.memory-prompt p{margin-top:4px;color:#e8f0ea}
+.memory-notes{margin:10px 0 7px;font-size:16px;font-weight:750}.memory-stage .key-help{margin-bottom:0}.memory-status{margin-top:7px}
+#memory-piano{height:clamp(80px,14vw,124px)}.memory-actions .button{min-width:0}
 #score-systems{margin:6px 0}.score-system{display:block;width:100%;color:var(--ink);overflow:visible}
 .measure{cursor:pointer;outline:none}.measure-bg{fill:transparent}.measure:hover .measure-bg{fill:var(--wash)}.measure.current-bar .measure-bg{fill:#f9eadb}
 .measure:focus-visible .measure-bg{stroke:#87461f;stroke-width:2}.staff-rule{stroke:#344139;stroke-width:1}.ledger{stroke:#172c24;stroke-width:1.45}
@@ -149,10 +158,38 @@ footer{margin:16px 0 30px;color:var(--muted);font-size:12px} section[id],details
 <div class="card score-card">
 <div class="row score-head">
 <div><h2 id="score-heading">오늘의 악보</h2><p id="sheet-meta" class="subtle"></p></div>
+<div class="score-actions">
+<button id="memory-open" class="button" type="button">음정 암기</button>
 <button id="print-daily" class="button" type="button">악보 인쇄</button>
+</div>
 </div>
 <div id="score-systems" aria-labelledby="score-heading"></div>
 <div class="row score-foot"><span id="interval-progress" class="subtle"></span><button id="interval-first" class="button" type="button">첫 마디로 ↻</button></div>
+</div>
+</section>
+<section id="memory-practice" class="card memory-card" aria-labelledby="memory-heading" hidden>
+<div class="pad memory-head">
+<div class="row"><h2 id="memory-heading" tabindex="-1">오늘의 음정 암기</h2>
+<button id="memory-close" class="button" type="button">악보로 돌아가기</button></div>
+<p class="subtle" id="memory-progress"></p>
+<div class="memory-choices" id="memory-choices" aria-label="오늘 연습할 음정"></div>
+</div>
+<div class="stage memory-stage">
+<ol class="memory-steps" id="memory-steps">
+<li>보고 치기</li><li>가리고 다시 치기</li><li>다른 시작음</li>
+</ol>
+<div class="memory-prompt"><h3 id="memory-interval"></h3><p id="memory-hint"></p></div>
+<p id="memory-notes" class="memory-notes"></p>
+<div id="memory-piano" class="piano" role="img"></div>
+<p id="memory-key-help" class="key-help"></p>
+</div>
+<div class="pad">
+<div class="memory-actions">
+<button class="button" id="memory-reveal" type="button">건반 확인</button>
+<button class="button" id="memory-listen" type="button">♪ 듣기</button>
+<button class="button primary" id="memory-next" type="button">다음 단계 →</button>
+</div>
+<p id="memory-status" class="status memory-status" role="status"></p>
 </div>
 </section>
 <div id="print-score" aria-hidden="true"><h1>오늘의 음정 악보</h1><p id="print-meta"></p><div id="print-systems"></div><p class="print-foot">소리숲 · 음정 따라 치기</p></div>
@@ -1198,6 +1235,7 @@ function checkScoreDate() {
   scoreUi.status.textContent = '마디를 눌러 바로 건반에서 확인할 수 있어요.';
   drawScore(scoreUi['print-systems'], 7, false);
   renderSystems();
+  document.dispatchEvent(new Event('sorisup-date'));
   return true;
 }
 
@@ -1225,6 +1263,243 @@ for (const link of document.querySelectorAll('nav a:not([href="#intervals"])')) 
   link.addEventListener('click', () => stopIntervalPlayback());
 }
 document.querySelector('nav a[href="#intervals"]').addEventListener('click', () => { if (run) stop(); });
+
+const memoryOrder = scoreShuffle(intervalDefinitions, 'sorisup-interval-memory-v1');
+function dailyMemoryPlan(date) {
+  const day = Date.parse(date + 'T00:00:00Z') / 86400000;
+  return [3, 1, 0].map(delay => {
+    const index = ((day - delay) % memoryOrder.length + memoryOrder.length) % memoryOrder.length;
+    const type = memoryOrder[index];
+    const [, high] = exampleDecks[intervalDefinitions.indexOf(type)];
+    const comfortable = high.filter(example => example.notes[0].pitch >= 57 &&
+      example.notes[0].pitch <= 71 && example.notes[1].pitch <= 81);
+    const examples = comfortable.length ? comfortable : high;
+    const ordered = scoreShuffle(examples, 'sorisup-memory:' + date + ':' + shortInterval(type));
+    const model = ordered[0];
+    const transfer = ordered.find(example => example.notes[0].pitch !== model.notes[0].pitch) ||
+      high.find(example => example.notes[0].pitch !== model.notes[0].pitch);
+    return { type, model, transfer };
+  });
+}
+
+const intervalMemory = (() => {
+  const panel = byId('memory-practice');
+  const sheet = byId('intervals');
+  const memoryUi = Object.fromEntries([
+    'heading', 'open', 'close', 'choices', 'progress', 'steps', 'interval', 'hint',
+    'notes', 'piano', 'key-help', 'reveal', 'listen', 'next', 'status'
+  ].map(id => [id, byId('memory-' + id)]));
+  const keyboard = makeKeyboard(memoryUi.piano, 48, 84);
+  const prompts = [
+    '표시된 두 음을 함께 눌러요. 건반 사이의 거리를 기억해 보세요.',
+    '첫 음에서 방금 연습한 음정을 기억해서 쳐 보세요.',
+    '시작음이 바뀌었어요. 여기서 같은 음정을 만들어 보세요.'
+  ];
+
+  let open = false;
+  let day = '';
+  let practice = [];
+  let completed = new Set();
+  let selected = 0;
+  let stage = 0;
+  let revealed = true;
+  let finished = false;
+  let message = '';
+  let held = new Set();
+  let waitForRelease = false;
+  let needsMidiSnapshot = true;
+  let soundRequest = 0;
+
+  const current = () => stage === 2 ? practice[selected].transfer : practice[selected].model;
+
+  function loadDay() {
+    const date = localDate();
+    if (day === date) return;
+    day = date;
+    practice = dailyMemoryPlan(day);
+    const saved = data.intervalMemory;
+    const allowed = new Set(practice.map(item => shortInterval(item.type)));
+    completed = new Set(saved?.date === day && Array.isArray(saved.done) ?
+      saved.done.filter(label => allowed.has(label)) : []);
+    const first = practice.findIndex(item => !completed.has(shortInterval(item.type)));
+    choose(first < 0 ? 0 : first);
+  }
+
+  function stopSound() {
+    soundRequest++;
+    if (open) silence();
+  }
+
+  function choose(index) {
+    selected = index;
+    setStage(0);
+  }
+
+  function setStage(index) {
+    stopSound();
+    stage = index;
+    revealed = stage === 0;
+    finished = false;
+    waitForRelease = held.size > 0;
+    message = '';
+    render();
+  }
+
+  function paintKeys(notes, visible) {
+    const selectedPitches = new Set(visible.map(note => note.pitch));
+    for (const [pitch, key] of keyboard) {
+      key.classList.toggle('active', selectedPitches.has(pitch));
+      key.classList.toggle('midi-held', held.has(pitch));
+    }
+    memoryUi.piano.setAttribute('aria-label', '피아노 건반 · ' +
+      [...new Set((revealed ? notes : visible).map(displayPitch))].join(', '));
+  }
+
+  function render() {
+    if (!open || !practice.length) return;
+    const chord = current();
+    const [first, second] = chord.notes;
+    const sameKey = first.pitch === second.pitch;
+    const shown = revealed ? chord.notes : [first];
+    const choiceButtons = practice.map(({type}, index) => {
+      const id = shortInterval(type);
+      const button = element('button', 'button', (completed.has(id) ? '✓ ' : '') + fullInterval(type));
+      button.type = 'button';
+      button.setAttribute('aria-pressed', String(index === selected));
+      button.addEventListener('click', () => choose(index));
+      return button;
+    });
+    const focusIndex = [...memoryUi.choices.children].indexOf(document.activeElement);
+    memoryUi.choices.replaceChildren(...choiceButtons);
+    if (focusIndex >= 0) choiceButtons[focusIndex]?.focus({preventScroll:true});
+
+    memoryUi.progress.textContent = '오늘의 음정 ' + completed.size + ' / ' + practice.length + ' 완료';
+    [...memoryUi.steps.children].forEach((step, index) => {
+      if (index === stage) step.setAttribute('aria-current', 'step');
+      else step.removeAttribute('aria-current');
+    });
+    memoryUi.interval.textContent = fullInterval(practice[selected].type);
+    memoryUi.hint.textContent = sameKey && stage === 0 ? '표시된 한 건반을 눌러요.' : prompts[stage];
+    memoryUi.notes.textContent = revealed ? [...new Set(chord.notes.map(displayPitch))].join(' + ') :
+      '시작음 ' + displayPitch(first);
+    memoryUi['key-help'].textContent = revealed ? '주황색은 눌러야 할 건반이에요.　● 가운데 도(C4)' :
+      '주황색은 시작음이에요.　● 가운데 도(C4)';
+    memoryUi.reveal.hidden = revealed;
+    memoryUi.listen.hidden = !revealed;
+    memoryUi.next.disabled = !revealed;
+    memoryUi.next.textContent = finished ? '한 번 더 ↻' : stage === 2 ?
+      (completed.size === practice.length - 1 && !completed.has(shortInterval(chord.type)) ? '오늘 연습 완료 ✓' : '이 음정 완료 ✓') :
+      '다음 단계 →';
+    memoryUi.status.textContent = message;
+    paintKeys(chord.notes, shown);
+  }
+
+  function setOpen(next, move = false) {
+    if (open === next) return;
+    if (next) {
+      if (run) stop();
+      stopIntervalPlayback();
+      open = true;
+      sheet.hidden = true;
+      panel.hidden = false;
+      needsMidiSnapshot = true;
+      held = new Set();
+      loadDay();
+      render();
+      if (location.hash !== '#memory-practice') history.replaceState(null, '', '#memory-practice');
+      if (move) {
+        panel.scrollIntoView({block:'start'});
+        memoryUi.heading.focus({preventScroll:true});
+      }
+    } else {
+      stopSound();
+      open = false;
+      panel.hidden = true;
+      sheet.hidden = false;
+      if (location.hash === '#memory-practice') history.replaceState(null, '', '#intervals');
+      renderSystems();
+      if (move) {
+        sheet.scrollIntoView({block:'start'});
+        memoryUi.open.focus({preventScroll:true});
+      }
+    }
+    document.dispatchEvent(new Event('sorisup-memory-mode'));
+  }
+
+  function receiveMIDI(notes) {
+    if (!open) return;
+    const pressed = new Set(notes);
+    const changed = held.size !== pressed.size || [...pressed].some(pitch => !held.has(pitch));
+    held = pressed;
+    if (needsMidiSnapshot) {
+      needsMidiSnapshot = false;
+      waitForRelease = held.size > 0;
+    }
+    if (!held.size) waitForRelease = false;
+    if (changed) {
+      const chord = current();
+      const required = new Set(chord.notes.map(note => note.pitch));
+      const visible = panel.getBoundingClientRect();
+      if (!finished && !waitForRelease && visible.bottom > 0 && visible.top < innerHeight &&
+          required.size === held.size && [...required].every(pitch => held.has(pitch))) {
+        revealed = true;
+        waitForRelease = true;
+        message = '맞게 쳤어요.';
+        render();
+      } else {
+        paintKeys(chord.notes, revealed ? chord.notes : [chord.notes[0]]);
+      }
+    }
+  }
+
+  memoryUi.open.addEventListener('click', () => setOpen(true, true));
+  memoryUi.close.addEventListener('click', () => setOpen(false, true));
+  document.querySelector('nav a[href="#intervals"]').addEventListener('click', () => setOpen(false));
+  document.addEventListener('sorisup-date', () => { if (open) loadDay(); });
+  window.addEventListener('hashchange', () => {
+    if (location.hash === '#memory-practice') setOpen(true, true);
+    if (location.hash === '#intervals') setOpen(false);
+  });
+  document.addEventListener('visibilitychange', () => { if (document.hidden && open) stopSound(); });
+
+  memoryUi.reveal.addEventListener('click', () => {
+    revealed = true;
+    message = '건반을 확인하고 한 번 더 쳐 보세요.';
+    render();
+    memoryUi.next.focus({preventScroll:true});
+  });
+  memoryUi.listen.addEventListener('click', async () => {
+    stopSound();
+    const request = soundRequest;
+    await Promise.race([wakeAudio(), new Promise(resolve => setTimeout(resolve, 180))]);
+    if (!open || !revealed || request !== soundRequest) return;
+    for (const pitch of new Set(current().notes.map(note => note.pitch))) playPitch(pitch, .75);
+  });
+  memoryUi.next.addEventListener('click', () => {
+    if (finished) {
+      choose(0);
+    } else if (stage < 2) {
+      setStage(stage + 1);
+      memoryUi.reveal.focus({preventScroll:true});
+    } else {
+      completed.add(shortInterval(practice[selected].type));
+      data.intervalMemory = { date: day, done: [...completed] };
+      save();
+      const next = practice.findIndex(item => !completed.has(shortInterval(item.type)));
+      if (next >= 0) {
+        choose(next);
+        memoryUi.next.focus({preventScroll:true});
+      } else {
+        finished = true;
+        message = '오늘의 음정 세 가지를 끝냈어요.';
+        render();
+      }
+    }
+  });
+  if (location.hash === '#memory-practice') setOpen(true, true);
+
+  return { setOpen, isOpen: () => open, receiveMIDI };
+})();
 
 </script>
 <!--
